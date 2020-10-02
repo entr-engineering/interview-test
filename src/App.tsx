@@ -1,9 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
+import {useGetAllUsers} from '../src/api/users';
 
-const API_URL = 'http://localhost:8099'
 
 function App() {
+  const data = useGetAllUsers();
+
   return (
     <div className="App">
       <h1>Planned Test</h1>
