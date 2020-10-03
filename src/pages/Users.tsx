@@ -1,10 +1,29 @@
 import React from "react";
 import Table from "../components/Table";
+import NumberRangeFilter from "../components/NumberRangeFilter";
+
 import { useGetAllUsers } from "../api/users";
+
 
 export default function Users() {
   const { data = [] } = useGetAllUsers();
-  const tableData = React.useMemo(() => data, [data]);
+  const [filteredRows, setFilteredRows] = React.useState(data);
+
+  React.useEffect(() => {
+    if (data.length) {
+      setFilteredRows(data);
+    }
+  }, [data]);
+
+  const onFilterChange = (filter: any) => {
+    setFilteredRows(
+      data.filter((r: any) => {
+        return r.age > filter.min && r.age < filter.max;
+      })
+    );
+  };
+
+  const tableData = React.useMemo(() => filteredRows, [filteredRows]);
 
   const columns = React.useMemo(
     () => [
@@ -27,21 +46,24 @@ export default function Users() {
     []
   );
   return (
-    <Table
-      columns={columns}
-      data={tableData}
-      initialState={{
-        sortBy: [
-          {
-            id: "name.firstName",
-            asc: true,
-          },
-          {
-            id: "age",
-            asc: true,
-          },
-        ],
-      }}
-    />
+    <>
+      <NumberRangeFilter onFilterChange={onFilterChange} />
+      <Table
+        columns={columns}
+        data={tableData}
+        initialState={{
+          sortBy: [
+            {
+              id: "name.firstName",
+              asc: true,
+            },
+            {
+              id: "age",
+              desc: true,
+            },
+          ],
+        }}
+      />
+    </>
   );
 }
