@@ -12,6 +12,7 @@
     "start:server": "node server/server.js"
   },
   "dependencies": {
+    "@types/react-table": "^7.0.23",
     "faker": "^4.1.0",
     "fastify": "^2.14.1",
     "fastify-cors": "^3.0.3",
@@ -19,6 +20,7 @@
     "react-dom": "^16.13.1",
     "react-query": "^2.23.0",
     "react-scripts": "3.4.1",
+    "react-table": "^7.5.1",
     "styled-components": "^5.1.1",
     "typescript": "^3.9.5"
   },
