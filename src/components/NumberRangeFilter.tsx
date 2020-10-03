@@ -24,7 +24,7 @@ const InputWrapper = styled.div`
   margin-bottom: 10px;
 `;
 const InputLabel = styled.label`
-  font-size: 14px;
+  font-size: 1rem;
   color: grey;
   padding-right: 10px;
 `;
