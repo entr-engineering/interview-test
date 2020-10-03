@@ -4,21 +4,18 @@ import { useTable, useSortBy} from "react-table";
 
 const Table = styled.table`
   border-collapse: collapse;
-  margin: 25px 0;
-  font-size: 0.9em;
-  border-radius: 5px 5px 0 0;
-  overflow: hidden;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  font-size: 1rem;
+  width: 600px;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+  background-color: white;
 `;
 const TableHeaderRow = styled.tr`
-  background-color: #009879;
-  color: white;
   text-align: left;
   font-weight: bold;
 `;
 
 const TableHead = styled.th`
-  font-size: 1rem;
   padding: 10px;
 `;
 

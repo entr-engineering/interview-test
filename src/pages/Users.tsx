@@ -1,9 +1,28 @@
 import React from "react";
 import Table from "../components/Table";
 import NumberRangeFilter from "../components/NumberRangeFilter";
+import styled from "styled-components";
 
 import { useGetAllUsers } from "../api/users";
 
+const MainWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
+const TableWrapper = styled.div`
+  display: flex;
+`;
+
+const TitleWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const Title = styled.div`
+  align-self: flex-start;
+  margin-bottom: 10px;
+`;
 
 export default function Users() {
   const { data = [] } = useGetAllUsers();
@@ -46,24 +65,29 @@ export default function Users() {
     []
   );
   return (
-    <>
-      <NumberRangeFilter onFilterChange={onFilterChange} />
-      <Table
-        columns={columns}
-        data={tableData}
-        initialState={{
-          sortBy: [
-            {
-              id: "name.firstName",
-              asc: true,
-            },
-            {
-              id: "age",
-              desc: true,
-            },
-          ],
-        }}
-      />
-    </>
+    <MainWrapper>
+      <TitleWrapper>
+        <Title>Users</Title>
+        <TableWrapper>
+          <NumberRangeFilter onFilterChange={onFilterChange} />
+          <Table
+            columns={columns}
+            data={tableData}
+            initialState={{
+              sortBy: [
+                {
+                  id: "name.firstName",
+                  asc: true,
+                },
+                {
+                  id: "age",
+                  desc: true,
+                },
+              ],
+            }}
+          />
+        </TableWrapper>
+      </TitleWrapper>
+    </MainWrapper>
   );
 }
