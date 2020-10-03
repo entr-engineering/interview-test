@@ -10,7 +10,7 @@ export default function Users() {
     () => [
       {
         Header: "Name",
-        accessor: "name",
+        accessor: "name.firstName",
         Cell: function createdDate({ row }: any) {
           return (
             <span>
@@ -26,5 +26,22 @@ export default function Users() {
     ],
     []
   );
-  return <Table columns={columns} data={tableData} />;
+  return (
+    <Table
+      columns={columns}
+      data={tableData}
+      initialState={{
+        sortBy: [
+          {
+            id: "name.firstName",
+            asc: true,
+          },
+          {
+            id: "age",
+            asc: true,
+          },
+        ],
+      }}
+    />
+  );
 }

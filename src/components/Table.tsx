@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { useTable } from "react-table";
+import { useTable, useSortBy} from "react-table";
 
 const Table = styled.table`
   border-collapse: collapse;
@@ -30,7 +30,7 @@ const TableDefinition = styled.td`
   padding: 12px 15px;
 `;
 
-export default function TableComponent({ columns, data }: any) {
+export default function TableComponent({ columns, data, initialState}: any) {
   // Use the state and functions returned from useTable to build your UI
   const {
     getTableProps,
@@ -41,7 +41,8 @@ export default function TableComponent({ columns, data }: any) {
   } = useTable({
     columns,
     data,
-  });
+    initialState
+  },useSortBy);
 
   // Render the UI for your table
   return (
@@ -50,9 +51,18 @@ export default function TableComponent({ columns, data }: any) {
         {headerGroups.map((headerGroup: any) => (
           <TableHeaderRow {...headerGroup.getHeaderGroupProps()}>
             {headerGroup.headers.map((column: any) => (
-              <TableHead {...column.getHeaderProps()}>
-                {column.render("Header")}
-              </TableHead>
+               <TableHead {...column.getHeaderProps(column.getSortByToggleProps())}>
+               {column.render('Header')}
+               {/* Add a sort direction indicator */}
+               <span>
+                 {column.isSorted
+                   ? column.isSortedDesc
+                     ? ' 🔽'
+                     : ' 🔼'
+                   : ''}
+               </span>
+             </TableHead>
+
             ))}
           </TableHeaderRow>
         ))}
