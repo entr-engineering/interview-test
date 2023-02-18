@@ -1,22 +1,35 @@
 import React from 'react';
-import styled from 'styled-components';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { LeftPane, RightPane, Main, Navbar, List, Container, AgeFilter } from './components';
 
-const API_URL = 'http://localhost:8099'
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchInterval: 1000 * 60 * 30, // 30 minutes
+      staleTime:  1000 * 60 * 30, // 30 minutes
+      refetchOnWindowFocus: false
+    }
+  }
+})
 
 function App() {
   return (
-    <div className="App">
-      <h1>Planned Test</h1>
-      <div>
-        <button type="button">Retrieve Users</button>
+    <QueryClientProvider client={queryClient}>
+      <div className="App">
+        <Navbar />
+        <Main>
+          <h2>Users</h2>
+          <Container>
+            <LeftPane>
+              <AgeFilter />
+            </LeftPane>
+            <RightPane>
+              <List />
+            </RightPane>
+          </Container>
+        </Main>
       </div>
-      <div>
-        <h2>Users</h2>
-        min: <input name="minAge" value="0" type="number" />
-        max: <input name="maxAge" value="100" type="number" />
-        <button type="button">Filter by age</button>
-      </div>
-    </div>
+    </QueryClientProvider>
   );
 }
 
